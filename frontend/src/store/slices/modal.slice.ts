@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { modals } from "../../components/modals";
 
 type InitialStateType = {
   isOpen: boolean;
-  modalType: string
+  modalType: modals
 };
 
 const InitialState: InitialStateType = {
   isOpen: false,
-  modalType: "NEW_ENTITE",
+  modalType: modals.NEW_ENTITE,
 };
 
 const modalSlice = createSlice({

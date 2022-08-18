@@ -1,15 +1,16 @@
 import { Button, Flex, SimpleGrid } from "@chakra-ui/react";
-import { useAppDispatch, useAppSelector } from "../store";
+import { AppDispatch, useAppDispatch, useAppSelector } from "../store";
 import { onOpenModal } from "../store/slices/modal.slice";
 import EntiteCard from "./EntiteCard";
+import { modals } from "./modals";
+
 
 export default function Content() {
   const dispatch = useAppDispatch();
   const entites = useAppSelector((state) => state.entite.entities);
 
   function handleNewEntite() {
-    dispatch(onOpenModal("NEW_ENTITE"));
-    console.log('teste')
+    dispatch(onOpenModal(modals.NEW_ENTITE));
   }
 
   return (
@@ -19,7 +20,6 @@ export default function Content() {
           rounded="lg"
           p={4}
           shadow="md"
-          w="100%"
           h="100%"
           justifyContent="space-between"
           bg="white"

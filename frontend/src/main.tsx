@@ -4,7 +4,7 @@ import App from "./App";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { store } from "./store";
 import { Provider } from "react-redux";
-import RenderModal from "./components/modals";
+import ModalWrapper from "./components/modals/ModalWrapper";
 
 const colors = {
   brand: {
@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <Provider store={store}>
       <ChakraProvider theme={theme}>
         <App />
-        <RenderModal />
+        <ModalWrapper />
       </ChakraProvider>
     </Provider>
   </React.StrictMode>
