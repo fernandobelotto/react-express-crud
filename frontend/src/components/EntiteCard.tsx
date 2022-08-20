@@ -1,7 +1,18 @@
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Flex, HStack, IconButton, Text } from "@chakra-ui/react";
+import { useAppDispatch } from "../store";
+import { deleteEntite } from "../store/thunks/entite.thunk";
 
 export default function EntiteCard({ entite }: any) {
+
+  const dispatch = useAppDispatch()
+
+  function handleDelete(id:string) {
+    dispatch(deleteEntite(id))
+  }
+  function handleEdit(id:string) {
+  }
+
   return (
     <>
       <Flex
@@ -16,8 +27,12 @@ export default function EntiteCard({ entite }: any) {
       >
         <Text>{entite.name}</Text>
         <HStack>
-          <IconButton size="sm" icon={<DeleteIcon />} aria-label="delete" />
-          <IconButton size="sm" icon={<EditIcon />} aria-label="edit" />
+          <IconButton
+          onClick={() => handleDelete(entite.id)}
+           size="sm" icon={<DeleteIcon />} aria-label="delete" />
+          <IconButton 
+          onClick={() => handleEdit(entite.id)}
+          size="sm" icon={<EditIcon />} aria-label="edit" />
         </HStack>
       </Flex>
     </>

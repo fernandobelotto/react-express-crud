@@ -1,6 +1,7 @@
 export type EntiteModel = {
-  id: string;
-  title: string;
-  content: string;
-  list: string;
+  id: string
+  name: string
+  age: number
+  isActive: boolean
 };
+

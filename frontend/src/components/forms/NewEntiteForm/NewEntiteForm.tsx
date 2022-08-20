@@ -6,15 +6,18 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { EntiteModel } from "../../../models/card.model";
+import { useAppDispatch } from "../../../store";
+import { createEntite } from "../../../store/thunks/entite.thunk";
 
 export default function NewEntiteForm() {
-  const { control, register, reset, formState, handleSubmit } = useForm();
-
-  function onSubmit(values: any) {
-    console.log(values);
+  const { control, register, reset, formState, handleSubmit } = useForm<EntiteModel>();
+  const dispatch = useAppDispatch()
+  function onSubmit(values: EntiteModel) {
+    dispatch(createEntite(values))
   }
 
   return (

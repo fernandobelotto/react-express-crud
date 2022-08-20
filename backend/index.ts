@@ -14,25 +14,26 @@ const entities: any = {
     isActive: true,
   },
 };
-app.get("/", (_req: Request, res: Response) => {
+app.get("/entities", (_req: Request, res: Response) => {
   res.json(Object.values(entities));
 });
-app.put("/:id", (req: Request, res: Response) => {
+app.put("/entities/:id", (req: Request, res: Response) => {
   const { id } = req.params;
   const { name, age, isActive } = req.body;
   entities[id] = { id, name, age, isActive };
   res.json(entities[id]);
 });
-app.post("/", (req: Request, res: Response) => {
+app.post("/entities", (req: Request, res: Response) => {
   const { name, age, isActive } = req.body;
   const id = Object.keys(entities).length + 1;
   entities[id] = { id, name, age, isActive };
   res.json(entities[id]);
 });
-app.delete("/", (req: Request, res: Response) => {
-  const { id } = req.body;
+app.delete("/entities/:id", (req: Request, res: Response) => {
+  const { id } = req.params;
+
   delete entities[id];
-  res.json(entities);
+  res.json(Object.values(entities));
 });
 
 app.listen(4000, () => {
