@@ -27,3 +27,10 @@ export const deleteEntite = createAsyncThunk(
     return EntiteApi.deleteById(id);
   }
 );
+
+export const getEntite = createAsyncThunk(
+  "entite/getEntite",
+  async (id: string) => {
+    return EntiteApi.getById(id);
+  }
+);

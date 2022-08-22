@@ -1,16 +1,31 @@
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { Flex, HStack, IconButton, Text } from "@chakra-ui/react";
+import { Flex, HStack, IconButton, Text, useToast } from "@chakra-ui/react";
 import { useAppDispatch } from "../store";
-import { deleteEntite } from "../store/thunks/entite.thunk";
+import { onOpenModal } from "../store/slices/modal.slice";
+import { deleteEntite, getEntite } from "../store/thunks/entite.thunk";
+import { modals } from "./modals";
 
 export default function EntiteCard({ entite }: any) {
+  const dispatch = useAppDispatch();
 
-  const dispatch = useAppDispatch()
-
-  function handleDelete(id:string) {
-    dispatch(deleteEntite(id))
+  function handleDelete(id: string) {
+    dispatch(deleteEntite(id));
   }
-  function handleEdit(id:string) {
+
+  const toast = useToast();
+
+  function handleEdit(id: string) {
+    dispatch(getEntite(id))
+      .unwrap()
+      .then(() => {
+        dispatch(onOpenModal(modals.EDIT_ENTITE));
+      })
+      .catch(() => {
+        toast({
+          title: "error getting info",
+          status: "error",
+        });
+      });
   }
 
   return (
@@ -28,11 +43,17 @@ export default function EntiteCard({ entite }: any) {
         <Text>{entite.name}</Text>
         <HStack>
           <IconButton
-          onClick={() => handleDelete(entite.id)}
-           size="sm" icon={<DeleteIcon />} aria-label="delete" />
-          <IconButton 
-          onClick={() => handleEdit(entite.id)}
-          size="sm" icon={<EditIcon />} aria-label="edit" />
+            onClick={() => handleDelete(entite.id)}
+            size="sm"
+            icon={<DeleteIcon />}
+            aria-label="delete"
+          />
+          <IconButton
+            onClick={() => handleEdit(entite.id)}
+            size="sm"
+            icon={<EditIcon />}
+            aria-label="edit"
+          />
         </HStack>
       </Flex>
     </>

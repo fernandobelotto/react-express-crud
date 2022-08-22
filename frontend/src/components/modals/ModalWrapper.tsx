@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { modalsHashMap } from ".";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { onClose } from "../../store/slices/modal.slice";
+import { onCloseModal } from "../../store/slices/modal.slice";
 
 export default function ModalWrapper() {
   const { modalType, isOpen } = useAppSelector((state) => state.modal);
@@ -16,7 +16,7 @@ export default function ModalWrapper() {
 
   if (modalsHashMap[modalType]) {
     return (
-      <Modal isOpen={isOpen} onClose={() => dispatch(onClose())}>
+      <Modal isOpen={isOpen} onClose={() => dispatch(onCloseModal())}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{modalsHashMap[modalType].title}</ModalHeader>

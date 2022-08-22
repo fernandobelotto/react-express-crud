@@ -20,12 +20,12 @@ const modalSlice = createSlice({
       state.isOpen = true;
     },
 
-    onClose: (state) => {
+    onCloseModal: (state) => {
       state.isOpen = false;
     }
   },
 });
 
-export const { onClose, onOpenModal } = modalSlice.actions;
+export const { onCloseModal, onOpenModal } = modalSlice.actions;
 
 export const ModalReducer = modalSlice.reducer;

@@ -20,9 +20,15 @@ export class EntiteApi {
     return data;
   }
 
+  static async getById(id: string): Promise<EntiteModel> {
+    const axiosInstance = getInstance();
+    const { data } = await axiosInstance.get(`entities/${id}`);
+    return data;
+  }
+
   static async updateById(id: string, body: EntiteModel) {
     const axiosInstance = getInstance();
-    const { data } = await axiosInstance.patch(`/entities/${id}`, body);
+    const { data } = await axiosInstance.put(`/entities/${id}`, body);
     return data;
   }
 }

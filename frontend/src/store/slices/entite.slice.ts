@@ -5,41 +5,48 @@ import {
   updateEntite,
   deleteEntite,
   getEntites,
+  getEntite,
 } from "../thunks/entite.thunk";
 
 type InitialStateType = {
   entities: EntiteModel[];
+  entitie: EntiteModel | null;
   loading: "idle" | "pending" | "succeeded" | "failed";
 };
 
 const InitialState: InitialStateType = {
   entities: [],
+  entitie: null,
   loading: "idle",
 };
 
 const entiteSlice = createSlice({
   initialState: InitialState,
   name: "entites",
-  reducers: {},
+  reducers: {
+    setEntitie: (state, action) => {
+      state.entitie = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(createEntite.fulfilled, (state, action) => {
+      .addCase(createEntite.fulfilled, (state) => {
         state.loading = "succeeded";
       })
-      .addCase(createEntite.pending, (state, action) => {
+      .addCase(createEntite.pending, (state) => {
         state.loading = "pending";
       })
-      .addCase(createEntite.rejected, (state, action) => {
+      .addCase(createEntite.rejected, (state) => {
         state.loading = "failed";
       })
       .addCase(updateEntite.fulfilled, (state, action) => {
         state.loading = "succeeded";
         state.entities = action.payload;
       })
-      .addCase(updateEntite.pending, (state, action) => {
+      .addCase(updateEntite.pending, (state) => {
         state.loading = "pending";
       })
-      .addCase(updateEntite.rejected, (state, action) => {
+      .addCase(updateEntite.rejected, (state) => {
         state.loading = "failed";
       })
 
@@ -47,10 +54,10 @@ const entiteSlice = createSlice({
         state.loading = "succeeded";
         state.entities = action.payload;
       })
-      .addCase(deleteEntite.pending, (state, action) => {
+      .addCase(deleteEntite.pending, (state) => {
         state.loading = "pending";
       })
-      .addCase(deleteEntite.rejected, (state, action) => {
+      .addCase(deleteEntite.rejected, (state) => {
         state.loading = "failed";
       })
 
@@ -58,15 +65,23 @@ const entiteSlice = createSlice({
         state.loading = "succeeded";
         state.entities = action.payload;
       })
-      .addCase(getEntites.pending, (state, action) => {
+      .addCase(getEntites.pending, (state) => {
         state.loading = "pending";
       })
-      .addCase(getEntites.rejected, (state, action) => {
+      .addCase(getEntites.rejected, (state) => {
+        state.loading = "failed";
+      })
+      .addCase(getEntite.fulfilled, (state, action) => {
+        state.loading = "succeeded";
+        state.entitie = action.payload;
+      })
+      .addCase(getEntite.pending, (state) => {
+        state.loading = "pending";
+      })
+      .addCase(getEntite.rejected, (state) => {
         state.loading = "failed";
       });
   },
 });
-
-// export const { } = entiteSlice.actions;
 
 export const EntiteReducer = entiteSlice.reducer;

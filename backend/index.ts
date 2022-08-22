@@ -17,11 +17,15 @@ const entities: any = {
 app.get("/entities", (_req: Request, res: Response) => {
   res.json(Object.values(entities));
 });
+app.get("/entities/:id", (req: Request, res: Response) => {
+  const id = req.params.id;
+  res.json(entities[id]);
+});
 app.put("/entities/:id", (req: Request, res: Response) => {
   const { id } = req.params;
   const { name, age, isActive } = req.body;
   entities[id] = { id, name, age, isActive };
-  res.json(entities[id]);
+  res.json(Object.values(entities));
 });
 app.post("/entities", (req: Request, res: Response) => {
   const { name, age, isActive } = req.body;
